@@ -1,11 +1,13 @@
 /**
  * @name Holo-Destructor
  * @author Sonatarisso
- * @description A high-performance, 3D glassmorphism theme.
- * @version 2.2.0
+ * @description A high-performance, 3D glassmorphism theme that destroys the competition.
+ * @version 2.0.0
  */
 
-/* FONTS & ASSETS */
+/* ======================================================
+   FONTS & ASSETS (Hosted on GitHub)
+   ====================================================== */
 @font-face {
     font-family: 'HoloBebas';
     src: url('https://raw.githubusercontent.com/Sonatarisso/Discordtheme/main/fonts/BebasNeue-Regular.ttf') format('truetype');
@@ -18,26 +20,78 @@
     font-weight: 400;
 }
 
-/* THEME CONFIGURATION */
+/* ======================================================
+   THEME CONFIGURATION
+   ====================================================== */
 :root {
     --holo-bg: url('https://raw.githubusercontent.com/Sonatarisso/Discordtheme/main/images/background.jpg');
     --glass-opacity: 0.7;
+    --blur-strength: 10px;
     --neon-primary: #00e5ff;
+    --neon-secondary: #ff00ff;
+    --rgb-speed: 3s;
 }
 
-/* APPLYING STYLES */
+/* ======================================================
+   ANIMATIONS
+   ====================================================== */
+@keyframes holo-breathe {
+    0% { box-shadow: 0 0 5px var(--neon-primary); border-color: var(--neon-primary); }
+    50% { box-shadow: 0 0 15px var(--neon-secondary); border-color: var(--neon-secondary); }
+    100% { box-shadow: 0 0 5px var(--neon-primary); border-color: var(--neon-primary); }
+}
+
+/* ======================================================
+   CORE LAYOUT
+   ====================================================== */
 #app-mount {
     background: var(--holo-bg) center/cover no-repeat fixed !important;
 }
 
-[class^="sidebar-"] [class^="name-"], 
-[class^="header-"],
+/* Translucency for main app layers */
+[class*="app-"], [class*="bg-"], [class*="scroller-"], [class*="wrapper-"] {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* ======================================================
+   UNIVERSAL GLASSMORPHISM
+   ====================================================== */
+[class*="sidebar-"], 
+[class*="members-"], 
+[class*="panels-"], 
+[class*="chat-"] > section, 
+[class*="container-"] {
+    background: rgba(0, 0, 0, var(--glass-opacity)) !important;
+    backdrop-filter: blur(var(--blur-strength));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ======================================================
+   HOLOGRAPHIC ANIMATIONS & 3D PERSPECTIVE
+   ====================================================== */
+/* Hover effects on interactive elements */
+[class*="listItem-"]:hover, 
+[class*="channel-"]:hover, 
+[class*="member-"]:hover,
+[class*="interactive-"]:hover {
+    transform: perspective(500px) translateZ(10px);
+    transition: transform 0.2s ease;
+    animation: holo-breathe var(--rgb-speed) infinite alternate;
+    z-index: 1;
+}
+
+/* ======================================================
+   TYPOGRAPHY
+   ====================================================== */
+[class*="sidebar-"] [class*="name-"], 
+[class*="header-"],
 h1, h2, h3 {
     font-family: 'HoloBebas', sans-serif !important;
     letter-spacing: 1px;
 }
 
-[class^="message-"], 
-[class^="markup-"] {
+[class*="message-"], 
+[class*="markup-"] {
     font-family: 'HoloOpenSans', sans-serif !important;
 }
