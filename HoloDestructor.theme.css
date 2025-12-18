@@ -1,0 +1,114 @@
+/**
+ * @name Holo-Destructor
+ * @author YourName
+ * @description A high-performance, 3D glassmorphism theme that destroys the competition.
+ * @version 2.1.0
+ */
+
+/* ======================================================
+   1. VARIABLES & CONFIGURATION
+   ====================================================== */
+:root {
+    /* UPDATED Background Image */
+    --holo-bg: url('https://w.wallhaven.cc/full/lm/wallhaven-lm5pgr.png');
+    
+    /* Colors tailored to the new wallpaper */
+    --glass-opacity: 0.75;  /* Slightly darker to make text readable over the busy city background */
+    --neon-primary: #00e5ff; /* Cyan to match the neon signs */
+    --neon-secondary: #ff2a6d; /* Hot pink to match the lights */
+    --blur-strength: 15px; /* Softer blur to let the city details peek through */
+}
+
+/* ======================================================
+   2. CORE LAYOUT & BACKGROUND
+   ====================================================== */
+#app-mount {
+    background: var(--holo-bg) center/cover no-repeat fixed !important;
+}
+
+/* Make default dark layers transparent */
+.app-2CXKsg, .bg-1QIAus, .scroller-WSmht3, .wrapper-1_HaEi {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* ======================================================
+   3. ULTRA-GLASSMORPHISM (The "Expensive" Look)
+   ====================================================== */
+/* Target Sidebar, Members List, Panels, and Chat Header */
+[class^="sidebar-"], 
+[class^="members-"], 
+[class^="panels-"], 
+[class^="chat-"] > section, 
+[class^="container-"] {
+    background: rgba(10, 10, 15, var(--glass-opacity)) !important; /* Deep blue-black tint */
+    backdrop-filter: blur(var(--blur-strength)) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+}
+
+/* Remove separators */
+.form-3gdLxP:before, [class^="children-"]:after {
+    display: none !important;
+}
+
+/* ======================================================
+   4. CRAZY ANIMATIONS (The "Flex")
+   ====================================================== */
+@keyframes neon-pulse {
+    0% { box-shadow: 0 0 5px var(--neon-primary); border-color: var(--neon-primary); }
+    50% { box-shadow: 0 0 15px var(--neon-secondary); border-color: var(--neon-secondary); }
+    100% { box-shadow: 0 0 5px var(--neon-primary); border-color: var(--neon-primary); }
+}
+
+/* Apply neon pulse to User Avatar in the bottom left */
+[class^="panels-"] [class^="avatar-"] {
+    animation: neon-pulse 3s infinite alternate;
+    border: 2px solid transparent;
+    border-radius: 50%;
+}
+
+/* ======================================================
+   5. 3D INTERACTIVE ELEMENTS
+   ====================================================== */
+/* 3D Tilt on Server Icons */
+[class^="wrapper-"] [class^="listItem-"] {
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+[class^="wrapper-"] [class^="listItem-"]:hover {
+    transform: perspective(100px) translateZ(10px) scale(1.1);
+    z-index: 100;
+}
+
+/* 3D Message Hover */
+[class^="message-"]:hover {
+    background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%) !important;
+    transform: translateX(4px);
+    border-left: 3px solid var(--neon-secondary);
+    transition: all 0.15s ease-out;
+}
+
+/* ======================================================
+   6. CLEANUP & HACKS
+   ====================================================== */
+/* Hide Nitro/Shop buttons */
+[href="/store"], [href="/shop"] {
+    display: none !important;
+}
+
+/* Global rounded corners */
+* {
+    border-radius: 6px !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--neon-primary), var(--neon-secondary)) !important;
+    border: 2px solid transparent;
+    background-clip: content-box !important;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2) !important;
+}
